@@ -111,10 +111,11 @@ function submitSurvey() {
 }
 
 function sendEmail(name, email, results) {
+    const resultsString = results.map(result => `${result.type}: ${result.percentage}%`).join(', ');
     const templateParams = {
         name: name,
         email: email,
-        results: results.map(result => `${result.type}: ${result.percentage}%`).join(', '),
+        results: resultsString,
         admin_email: 'ranjanrishabh78@gmail.com'
     };
 

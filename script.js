@@ -1,3 +1,4 @@
+emailjs.init('9fcSaMBOo8taTcGEp');
 const questions = [
     { text: "I pride myself on having a large vocabulary.", type: "linguistic" },
     { text: "Using numbers and numerical symbols is easy for me.", type: "logical-mathematical" },
@@ -104,5 +105,23 @@ function submitSurvey() {
     allResults.push(userResults);
     localStorage.setItem('allResults', JSON.stringify(allResults));
 
+    sendEmail(userName, userEmail, resultArray);
+
     window.location.href = 'results.html';
+}
+
+function sendEmail(name, email, results) {
+    const templateParams = {
+        name: name,
+        email: email,
+        results: results.map(result => `${result.type}: ${result.percentage}%`).join(', '),
+        admin_email: 'ranjanrishabh78@gmail.com'
+    };
+
+    emailjs.send('service_ditjuhf', 'template_1b6bmcj', templateParams)
+        .then(response => {
+            console.log('SUCCESS!', response.status, response.text);
+        }, error => {
+            console.log('FAILED...', error);
+        });
 }

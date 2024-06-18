@@ -1,3 +1,8 @@
+// Add this script tag to the head of your results.html
+// <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+emailjs.init('9fcSaMBOo8taTcGEp'); // Replace with your EmailJS API key
+
 document.addEventListener('DOMContentLoaded', () => {
     const resultsDiv = document.getElementById('results');
     const results = JSON.parse(localStorage.getItem('allResults'));

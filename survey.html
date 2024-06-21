@@ -1,18 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        .question { margin-bottom: 20px; }
+    </style>
 </head>
 <body>
-    <h1>Survey</h1>
-    <form id="survey-form">
-        <!-- Questions will be inserted here by JavaScript -->
-        <button type="button" onclick="submitSurvey()">Submit</button>
+    <h1>Intelligence Survey</h1>
+    <form id="survey-form" onsubmit="submitSurvey(); return false;">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <!-- Questions will be injected here by JavaScript -->
+        <div id="questions"></div>
+        <button type="submit">Submit Survey</button>
     </form>
+
+    <script>
+        const questions = [
+            { text: "I enjoy writing things down.", type: "linguistic" },
+            { text: "I am good at math.", type: "logicalMathematical" },
+            { text: "I can play a musical instrument.", type: "musical" },
+            { text: "I can read maps well.", type: "spatial" },
+            { text: "I am good at sports.", type: "bodilyKinesthetic" },
+            { text: "I enjoy being with people.", type: "interpersonal" },
+            { text: "I am self-aware.", type: "intrapersonal" },
+            { text: "I enjoy nature.", type: "naturalist" }
+        ];
+
+        const form = document.getElementById('survey-form');
+        const questionsDiv = document.getElementById('questions');
+
+        questions.forEach((question, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+                <label for="question${index}">${index + 1}. ${question.text}</label>
+                <div>
+                    <input type="radio" name="question${index}" value="1"> 1
+                    <input type="radio" name="question${index}" value="2"> 2
+                    <input type="radio" name="question${index}" value="3"> 3
+                    <input type="radio" name="question${index}" value="4"> 4
+                    <input type="radio" name="question${index}" value="5"> 5
+                </div>
+            `;
+            questionsDiv.appendChild(questionDiv);
+        });
+
+        async function submitSurvey() {
+            const scores = {
+                "linguistic": { score: 0, total: 0 },
+                "logicalMathematical": { score: 0, total: 0 },
+                "musical": { score: 0, total: 0 },
+                "spatial": { score: 0, total: 0 },
+                "bodilyKinesthetic": { score: 0, total: 0 },
+                "interpersonal": { score: 0, total: 0 },
+                "intrapersonal": { score: 0, total: 0 },
+                "naturalist": { score: 0, total: 0 }
+            };
+
+            questions.forEach((question, index) => {
+                const options = document.getElementsByName(`question${index}`);
+                options.forEach(option => {
+                    if (option.checked) {
+                        scores[question.type].score += parseInt(option.value);
+                        scores[question.type].total += 5;
+                    }
+                });
+            });
+
+            const userName = document.getElementById('name').value;
+            const userEmail = document.getElementById('email').value;
+            const userResults = {
+                name: userName,
+                email: userEmail,
+                linguistic: scores.linguistic.score,
+                logicalMathematical: scores.logicalMathematical.score,
+                musical: scores.musical.score,
+                spatial: scores.spatial.score,
+                bodilyKinesthetic: scores.bodilyKinesthetic.score,
+                interpersonal: scores.interpersonal.score,
+                intrapersonal: scores.intrapersonal.score,
+                naturalist: scores.naturalist.score
+            };
+
+            await fetch('https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec', {
+                method: 'POST',
+                body: JSON.stringify(userResults)
+            });
+
+            window.location.href = 'results.html';
+        }
+    </script>
 </body>
-<script src="script.js"></script>
 </html>

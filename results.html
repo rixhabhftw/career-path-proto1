@@ -1,17 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey Results</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .result {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Survey Results</h1>
-    <div id="results">
-        <!-- Results will be displayed here -->
+    <div class="container">
+        <h1>Your Survey Results</h1>
+        <div id="results"></div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('name');
+            const email = urlParams.get('email');
+            const linguistic = urlParams.get('linguistic');
+            const logicalMathematical = urlParams.get('logicalMathematical');
+            const musical = urlParams.get('musical');
+            const spatial = urlParams.get('spatial');
+            const bodilyKinesthetic = urlParams.get('bodilyKinesthetic');
+            const interpersonal = urlParams.get('interpersonal');
+            const intrapersonal = urlParams.get('intrapersonal');
+            const naturalist = urlParams.get('naturalist');
+
+            const resultsDiv = document.getElementById('results');
+            let resultHTML = `<div class="result"><h2>Results for ${name} (${email})</h2>`;
+            resultHTML += `<p>Linguistic: ${linguistic}%</p>`;
+            resultHTML += `<p>Logical-Mathematical: ${logicalMathematical}%</p>`;
+            resultHTML += `<p>Musical: ${musical}%</p>`;
+            resultHTML += `<p>Spatial: ${spatial}%</p>`;
+            resultHTML += `<p>Bodily-Kinesthetic: ${bodilyKinesthetic}%</p>`;
+            resultHTML += `<p>Interpersonal: ${interpersonal}%</p>`;
+            resultHTML += `<p>Intrapersonal: ${intrapersonal}%</p>`;
+            resultHTML += `<p>Naturalist: ${naturalist}%</p></div>`;
+            resultsDiv.innerHTML = resultHTML;
+        });
+    </script>
 </body>
-<script src="results.js"></script>
 </html>

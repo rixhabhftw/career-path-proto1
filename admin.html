@@ -4,10 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .result {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>All Survey Results</h1>
-    <div id="results"></div>
+    <div class="container">
+        <h1>All Survey Results</h1>
+        <div id="results"></div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
@@ -17,15 +35,15 @@
 
             let resultHTML = '';
             results.forEach(result => {
-                resultHTML += `<h2>Results for ${result.name} (${result.email})</h2>`;
-                resultHTML += `<p>Linguistic: ${result.linguistic}</p>`;
-                resultHTML += `<p>Logical-Mathematical: ${result.logicalMathematical}</p>`;
-                resultHTML += `<p>Musical: ${result.musical}</p>`;
-                resultHTML += `<p>Spatial: ${result.spatial}</p>`;
-                resultHTML += `<p>Bodily-Kinesthetic: ${result.bodilyKinesthetic}</p>`;
-                resultHTML += `<p>Interpersonal: ${result.interpersonal}</p>`;
-                resultHTML += `<p>Intrapersonal: ${result.intrapersonal}</p>`;
-                resultHTML += `<p>Naturalist: ${result.naturalist}</p>`;
+                resultHTML += `<div class="result"><h2>Results for ${result.name} (${result.email})</h2>`;
+                resultHTML += `<p>Linguistic: ${result.linguistic}%</p>`;
+                resultHTML += `<p>Logical-Mathematical: ${result.logicalMathematical}%</p>`;
+                resultHTML += `<p>Musical: ${result.musical}%</p>`;
+                resultHTML += `<p>Spatial: ${result.spatial}%</p>`;
+                resultHTML += `<p>Bodily-Kinesthetic: ${result.bodilyKinesthetic}%</p>`;
+                resultHTML += `<p>Interpersonal: ${result.interpersonal}%</p>`;
+                resultHTML += `<p>Intrapersonal: ${result.intrapersonal}%</p>`;
+                resultHTML += `<p>Naturalist: ${result.naturalist}%</p></div>`;
             });
 
             resultsDiv.innerHTML = resultHTML;

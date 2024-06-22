@@ -3,102 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey</title>
+    <title>Multiple Intelligences Survey</title>
     <style>
-        .question { margin-bottom: 20px; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+        .options input {
+            margin-right: 5px;
+        }
+        .options label {
+            margin-right: 20px;
+        }
     </style>
 </head>
 <body>
-    <h1>Intelligence Survey</h1>
-    <form id="survey-form" onsubmit="submitSurvey(); return false;">
-        <div>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <!-- Questions will be injected here by JavaScript -->
-        <div id="questions"></div>
-        <button type="submit">Submit Survey</button>
-    </form>
-
+    <div class="container">
+        <h1>Multiple Intelligences Survey</h1>
+        <form id="surveyForm">
+            <div class="question">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="question">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div id="questionsContainer"></div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
     <script>
         const questions = [
-            { text: "I enjoy writing things down.", type: "linguistic" },
-            { text: "I am good at math.", type: "logicalMathematical" },
-            { text: "I can play a musical instrument.", type: "musical" },
-            { text: "I can read maps well.", type: "spatial" },
-            { text: "I am good at sports.", type: "bodilyKinesthetic" },
-            { text: "I enjoy being with people.", type: "interpersonal" },
-            { text: "I am self-aware.", type: "intrapersonal" },
-            { text: "I enjoy nature.", type: "naturalist" }
+            "I enjoy categorizing things by common traits.",
+            "I can usually remember a new tune after hearing it just a couple of times.",
+            "I often try to find patterns and relationships between numbers.",
+            "I am deeply aware of my emotions and can easily describe them.",
+            "I can work well in groups.",
+            "I enjoy physical activities like sports or dance.",
+            "I enjoy writing things down.",
+            "I like to be alone to think things over.",
+            "I can easily visualize objects in my mind.",
+            "I enjoy spending time outdoors, learning about nature.",
+            "I can identify different instruments in a piece of music.",
+            "Math and logic problems make sense to me.",
+            "I often think about philosophical questions.",
+            "I am good at understanding people’s feelings.",
+            "I have good hand-eye coordination and enjoy working with my hands.",
+            "I find it easy to express myself, both in writing and verbally.",
+            "I know how I am feeling most of the time.",
+            "I am good at reading maps and charts.",
+            "I find patterns in nature.",
+            "I can remember a piece of music after hearing it only once or twice.",
+            "I enjoy solving complex problems.",
+            "I often ponder the meaning of life.",
+            "I can sense other people’s feelings and emotions.",
+            "I am good at physical activities like sports or crafts.",
+            "I enjoy reading books and writing stories.",
+            "I am aware of my strengths and weaknesses.",
+            "I can imagine how something will look before it is finished.",
+            "I enjoy studying the details of things in nature.",
+            "I can recognize different musical styles.",
+            "I enjoy games that involve strategy and planning.",
+            "I am curious about how things work.",
+            "I am good at resolving conflicts between people.",
+            "I enjoy building things with my hands.",
+            "I like to play with words and language.",
+            "I spend time reflecting on important life questions.",
+            "I can read diagrams and blueprints easily.",
+            "I am interested in environmental issues.",
+            "I can easily remember melodies and songs.",
+            "I am good at finding logical solutions to problems.",
+            "I enjoy discussing questions about life and existence.",
+            "I am good at making others feel comfortable.",
+            "I have good balance and coordination.",
+            "I enjoy creative writing and storytelling.",
+            "I am aware of my thoughts and feelings.",
+            "I can solve puzzles and mazes easily.",
+            "I enjoy learning about plants and animals.",
+            "I can recognize different rhythms and patterns in music.",
+            "I like to solve challenging problems.",
+            "I think about abstract concepts and ideas.",
+            "I am good at understanding social situations.",
+            "I am skilled at making things with my hands.",
+            "I like to play with language and sounds.",
+            "I spend time thinking about my goals and ambitions.",
+            "I can easily understand visual arts and designs.",
+            "I am passionate about protecting the environment.",
+            "I can remember lyrics to songs easily.",
+            "I enjoy analyzing data and patterns.",
+            "I think about the future and my place in the world.",
+            "I am good at helping others understand new ideas.",
+            "I am physically active and enjoy exercise.",
+            "I enjoy reading and writing in my free time.",
+            "I am good at identifying my feelings.",
+            "I am skilled at interpreting visual information.",
+            "I enjoy exploring the natural world."
         ];
 
-        const form = document.getElementById('survey-form');
-        const questionsDiv = document.getElementById('questions');
-
+        const container = document.getElementById('questionsContainer');
         questions.forEach((question, index) => {
+            const questionNumber = index + 1;
             const questionDiv = document.createElement('div');
-            questionDiv.className = 'question';
+            questionDiv.classList.add('question');
             questionDiv.innerHTML = `
-                <label for="question${index}">${index + 1}. ${question.text}</label>
-                <div>
-                    <input type="radio" name="question${index}" value="1"> 1
-                    <input type="radio" name="question${index}" value="2"> 2
-                    <input type="radio" name="question${index}" value="3"> 3
-                    <input type="radio" name="question${index}" value="4"> 4
-                    <input type="radio" name="question${index}" value="5"> 5
+                <label>${questionNumber}. ${question}</label>
+                <div class="options">
+                    <input type="radio" id="q${questionNumber}-1" name="q${questionNumber}" value="1" required><label for="q${questionNumber}-1">1</label>
+                    <input type="radio" id="q${questionNumber}-2" name="q${questionNumber}" value="2"><label for="q${questionNumber}-2">2</label>
+                    <input type="radio" id="q${questionNumber}-3" name="q${questionNumber}" value="3"><label for="q${questionNumber}-3">3</label>
+                    <input type="radio" id="q${questionNumber}-4" name="q${questionNumber}" value="4"><label for="q${questionNumber}-4">4</label>
+                    <input type="radio" id="q${questionNumber}-5" name="q${questionNumber}" value="5"><label for="q${questionNumber}-5">5</label>
                 </div>
             `;
-            questionsDiv.appendChild(questionDiv);
+            container.appendChild(questionDiv);
         });
-
-        async function submitSurvey() {
-            const scores = {
-                "linguistic": { score: 0, total: 0 },
-                "logicalMathematical": { score: 0, total: 0 },
-                "musical": { score: 0, total: 0 },
-                "spatial": { score: 0, total: 0 },
-                "bodilyKinesthetic": { score: 0, total: 0 },
-                "interpersonal": { score: 0, total: 0 },
-                "intrapersonal": { score: 0, total: 0 },
-                "naturalist": { score: 0, total: 0 }
-            };
-
-            questions.forEach((question, index) => {
-                const options = document.getElementsByName(`question${index}`);
-                options.forEach(option => {
-                    if (option.checked) {
-                        scores[question.type].score += parseInt(option.value);
-                        scores[question.type].total += 5;
-                    }
-                });
-            });
-
-            const userName = document.getElementById('name').value;
-            const userEmail = document.getElementById('email').value;
-            const userResults = {
-                name: userName,
-                email: userEmail,
-                linguistic: scores.linguistic.score,
-                logicalMathematical: scores.logicalMathematical.score,
-                musical: scores.musical.score,
-                spatial: scores.spatial.score,
-                bodilyKinesthetic: scores.bodilyKinesthetic.score,
-                interpersonal: scores.interpersonal.score,
-                intrapersonal: scores.intrapersonal.score,
-                naturalist: scores.naturalist.score
-            };
-
-            await fetch('https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec', {
-                method: 'POST',
-                body: JSON.stringify(userResults)
-            });
-
-            window.location.href = 'results.html';
-        }
     </script>
 </body>
 </html>

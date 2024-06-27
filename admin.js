@@ -2,25 +2,23 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec')
         .then(response => response.json())
         .then(data => {
-            const resultsTableBody = document.getElementById('resultsTableBody');
+            const resultsContainer = document.getElementById('results');
             data.forEach(result => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${result.name}</td>
-                    <td>${result.email}</td>
-                    <td>${result.linguistic}%</td>
-                    <td>${result.logicalMathematical}%</td>
-                    <td>${result.musical}%</td>
-                    <td>${result.spatial}%</td>
-                    <td>${result.bodilyKinesthetic}%</td>
-                    <td>${result.interpersonal}%</td>
-                    <td>${result.intrapersonal}%</td>
-                    <td>${result.naturalist}%</td>
+                const resultDiv = document.createElement('div');
+                resultDiv.classList.add('result');
+                resultDiv.innerHTML = `
+                    <p>Name: ${result.name}</p>
+                    <p>Email: ${result.email}</p>
+                    <p>Linguistic: ${result.linguistic}%</p>
+                    <p>Logical-Mathematical: ${result.logicalMathematical}%</p>
+                    <p>Musical: ${result.musical}%</p>
+                    <p>Spatial: ${result.spatial}%</p>
+                    <p>Bodily-Kinesthetic: ${result.bodilyKinesthetic}%</p>
+                    <p>Interpersonal: ${result.interpersonal}%</p>
+                    <p>Intrapersonal: ${result.intrapersonal}%</p>
+                    <p>Naturalist: ${result.naturalist}%</p>
                 `;
-                resultsTableBody.appendChild(row);
+                resultsContainer.appendChild(resultDiv);
             });
-        })
-        .catch(error => {
-            console.error('Error fetching survey results:', error);
         });
 });

@@ -2,57 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-        }
-        h1 {
-            text-align: center;
-        }
-        .question {
-            margin-bottom: 20px;
-        }
-        .checkbox-wrapper {
-            display: flex;
-            justify-content: space-between;
-        }
-        .checkbox-wrapper input[type="radio"] {
-            display: none;
-        }
-        .checkbox-wrapper label {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .checkbox-wrapper input[type="radio"]:checked + label {
-            background-color: #f0f0f0;
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Multiple Intelligence Survey</h1>
-        <form id="surveyForm">
-            <div>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div id="questionContainer"></div>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
+    <h1>Survey Questions</h1>
+    <form id="surveyForm">
+        <!-- Questions will be added dynamically here -->
+    </form>
     <script src="script.js"></script>
 </body>
 </html>

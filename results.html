@@ -10,49 +10,50 @@
             margin: 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
         }
-        .result {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        h1 {
+            text-align: center;
+        }
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .results-table th, .results-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .results-table th {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Your Survey Results</h1>
-        <div id="results"></div>
+        <h1>Survey Results</h1>
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Linguistic</th>
+                    <th>Logical-Mathematical</th>
+                    <th>Musical</th>
+                    <th>Spatial</th>
+                    <th>Bodily-Kinesthetic</th>
+                    <th>Interpersonal</th>
+                    <th>Intrapersonal</th>
+                    <th>Naturalist</th>
+                </tr>
+            </thead>
+            <tbody id="resultsTableBody">
+                <!-- Results will be appended here -->
+            </tbody>
+        </table>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const name = urlParams.get('name');
-            const email = urlParams.get('email');
-            const linguistic = urlParams.get('linguistic');
-            const logicalMathematical = urlParams.get('logicalMathematical');
-            const musical = urlParams.get('musical');
-            const spatial = urlParams.get('spatial');
-            const bodilyKinesthetic = urlParams.get('bodilyKinesthetic');
-            const interpersonal = urlParams.get('interpersonal');
-            const intrapersonal = urlParams.get('intrapersonal');
-            const naturalist = urlParams.get('naturalist');
-
-            const resultsDiv = document.getElementById('results');
-            let resultHTML = `<div class="result"><h2>Results for ${name} (${email})</h2>`;
-            resultHTML += `<p>Linguistic: ${linguistic}%</p>`;
-            resultHTML += `<p>Logical-Mathematical: ${logicalMathematical}%</p>`;
-            resultHTML += `<p>Musical: ${musical}%</p>`;
-            resultHTML += `<p>Spatial: ${spatial}%</p>`;
-            resultHTML += `<p>Bodily-Kinesthetic: ${bodilyKinesthetic}%</p>`;
-            resultHTML += `<p>Interpersonal: ${interpersonal}%</p>`;
-            resultHTML += `<p>Intrapersonal: ${intrapersonal}%</p>`;
-            resultHTML += `<p>Naturalist: ${naturalist}%</p></div>`;
-            resultsDiv.innerHTML = resultHTML;
-        });
-    </script>
+    <script src="results.js"></script>
 </body>
 </html>

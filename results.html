@@ -2,57 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey Results</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-        }
-        h1 {
-            text-align: center;
-        }
-        .results-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        .results-table th, .results-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        .results-table th {
-            background-color: #f2f2f2;
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Survey Results</h1>
-        <table class="results-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Linguistic</th>
-                    <th>Logical-Mathematical</th>
-                    <th>Musical</th>
-                    <th>Spatial</th>
-                    <th>Bodily-Kinesthetic</th>
-                    <th>Interpersonal</th>
-                    <th>Intrapersonal</th>
-                    <th>Naturalist</th>
-                </tr>
-            </thead>
-            <tbody id="resultsTableBody">
-                <!-- Results will be appended here -->
-            </tbody>
-        </table>
+    <h1>Survey Results</h1>
+    <div>
+        <p>Name: <span id="resultName"></span></p>
+        <p>Email: <span id="resultEmail"></span></p>
+        <p>Linguistic: <span id="resultLinguistic"></span></p>
+        <p>Logical-Mathematical: <span id="resultLogicalMathematical"></span></p>
+        <p>Musical: <span id="resultMusical"></span></p>
+        <p>Spatial: <span id="resultSpatial"></span></p>
+        <p>Bodily-Kinesthetic: <span id="resultBodilyKinesthetic"></span></p>
+        <p>Interpersonal: <span id="resultInterpersonal"></span></p>
+        <p>Intrapersonal: <span id="resultIntrapersonal"></span></p>
+        <p>Naturalist: <span id="resultNaturalist"></span></p>
     </div>
     <script src="results.js"></script>
 </body>

@@ -1,62 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
     const questions = [
-        { text: "I enjoy writing things down.", type: "linguistic" },
-        { text: "I read books for pleasure.", type: "linguistic" },
-        { text: "I enjoy playing with numbers and solving puzzles.", type: "logicalMathematical" },
-        { text: "I like to create or listen to music.", type: "musical" },
-        { text: "I can visualize things clearly in my mind.", type: "spatial" },
-        { text: "I like to move around and be physically active.", type: "bodilyKinesthetic" },
-        { text: "I work well with others.", type: "interpersonal" },
-        { text: "I am self-aware and understand my own emotions.", type: "intrapersonal" },
-        { text: "I appreciate nature and the environment.", type: "naturalist" },
-        // Add the remaining 45 questions here in the same format
+        { question: "I enjoy word games like crosswords and Scrabble.", category: "linguistic" },
+        { question: "I like to read books just for fun.", category: "linguistic" },
+        { question: "I have a good vocabulary.", category: "linguistic" },
+        { question: "I enjoy math classes.", category: "logicalMathematical" },
+        { question: "I like to do science experiments.", category: "logicalMathematical" },
+        { question: "I am good at solving problems and puzzles.", category: "logicalMathematical" },
+        { question: "I can play a musical instrument.", category: "musical" },
+        { question: "I can remember the melodies of songs easily.", category: "musical" },
+        { question: "I enjoy listening to music.", category: "musical" },
+        // Add remaining questions here...
     ];
 
-  const questionContainer = document.getElementById('questionContainer');
-    const name = localStorage.getItem('name');
-    const email = localStorage.getItem('email');
-
-    document.getElementById('name').value = name;
-    document.getElementById('email').value = email;
-
-    questions.forEach((question, index) => {
-        const questionDiv = document.createElement('div');
-        questionDiv.classList.add('question');
-        
-        const questionLabel = document.createElement('label');
-        questionLabel.textContent = `${index + 1}. ${question.text}`;
-        questionDiv.appendChild(questionLabel);
-
-        const radioContainer = document.createElement('div');
-        radioContainer.classList.add('radio-container');
-
-        for (let i = 1; i <= 5; i++) {
-            const radioInput = document.createElement('input');
-            radioInput.type = 'radio';
-            radioInput.id = `q${index + 1}_${question.type}_${i}`;
-            radioInput.name = `q${index + 1}_${question.type}`;
-            radioInput.value = i;
-            radioInput.required = true;
-
-            const radioLabel = document.createElement('label');
-            radioLabel.htmlFor = radioInput.id;
-            radioLabel.textContent = i;
-
-            radioContainer.appendChild(radioInput);
-            radioContainer.appendChild(radioLabel);
-        }
-
-        questionDiv.appendChild(radioContainer);
-        questionContainer.appendChild(questionDiv);
+    const surveyForm = document.getElementById('surveyForm');
+    questions.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+            <label>${index + 1}. ${q.question}</label>
+            <input type="radio" name="q${index}" value="1"> 1
+            <input type="radio" name="q${index}" value="2"> 2
+            <input type="radio" name="q${index}" value="3"> 3
+            <input type="radio" name="q${index}" value="4"> 4
+            <input type="radio" name="q${index}" value="5"> 5
+            <br><br>
+        `;
+        surveyForm.appendChild(div);
     });
 
-    document.getElementById('surveyForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const totalQuestions = questions.length;
+    surveyForm.innerHTML += '<button type="submit">Submit</button>';
+    
+    surveyForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(surveyForm);
         const scores = {
             linguistic: 0,
             logicalMathematical: 0,
@@ -67,14 +42,18 @@ document.addEventListener('DOMContentLoaded', function() {
             intrapersonal: 0,
             naturalist: 0
         };
+        let totalQuestions = 0;
 
-        formData.forEach((value, key) => {
-            if (key.startsWith('q')) {
-                const [_, type] = key.split('_');
-                scores[type] += parseInt(value);
+        questions.forEach((q, index) => {
+            const score = formData.get(`q${index}`);
+            if (score) {
+                scores[q.category] += parseInt(score);
+                totalQuestions++;
             }
         });
 
+        const name = localStorage.getItem('name');
+        const email = localStorage.getItem('email');
         const data = {
             name: name,
             email: email,
@@ -90,13 +69,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         fetch('https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec', {
             method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            body: JSON.stringify(data)
         })
         .then(response => response.json())
-        .then(result => {
-            if (result.result === 'success') {
+        .then(data => {
+            if (data.result === 'success') {
                 window.location.href = 'result.html';
-            } else
+            }
+        });
+    });
+});

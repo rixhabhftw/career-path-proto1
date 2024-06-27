@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiple Intelligences Survey</title>
+    <title>Survey</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,173 +19,40 @@
         .question {
             margin-bottom: 20px;
         }
-        .options {
+        .checkbox-wrapper {
             display: flex;
-            justify-content: space-around;
-            margin-top: 10px;
+            justify-content: space-between;
         }
-        .options input {
-            margin-right: 5px;
+        .checkbox-wrapper input[type="radio"] {
+            display: none;
         }
-        .options label {
-            margin-right: 20px;
+        .checkbox-wrapper label {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .checkbox-wrapper input[type="radio"]:checked + label {
+            background-color: #f0f0f0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Multiple Intelligences Survey</h1>
+        <h1>Multiple Intelligence Survey</h1>
         <form id="surveyForm">
-            <div id="questionsContainer"></div>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div id="questionContainer"></div>
             <button type="submit">Submit</button>
         </form>
     </div>
-    <script>
-        const questions = [
-            "I enjoy categorizing things by common traits.",
-            "I can usually remember a new tune after hearing it just a couple of times.",
-            "I often read while listening to music.",
-            "I like to work with my hands.",
-            "I learn best when interacting with others.",
-            "I enjoy outdoor activities.",
-            "I can sense others’ feelings.",
-            "I often think about the earth and nature.",
-            "I often think about the world and the universe.",
-            "I can create mental images.",
-            "I enjoy working out problems or puzzles.",
-            "I often use maps to find places.",
-            "I enjoy reading books and magazines.",
-            "I enjoy listening to the sounds of nature.",
-            "I can easily remember facts and figures.",
-            "I enjoy playing musical instruments.",
-            "I can easily understand and follow instructions.",
-            "I often daydream.",
-            "I enjoy sports and physical activities.",
-            "I enjoy spending time with friends.",
-            "I have a good sense of direction.",
-            "I enjoy solving mathematical problems.",
-            "I enjoy listening to various types of music.",
-            "I can visualize ideas in my mind.",
-            "I enjoy participating in group activities.",
-            "I am interested in scientific discoveries.",
-            "I have a large vocabulary.",
-            "I enjoy composing or performing music.",
-            "I am good at problem-solving.",
-            "I can remember things by picturing them.",
-            "I like to build things.",
-            "I enjoy helping others.",
-            "I have a good understanding of my emotions.",
-            "I enjoy spending time alone.",
-            "I am good at noticing details.",
-            "I enjoy writing stories or poems.",
-            "I am interested in learning about different cultures.",
-            "I have a good sense of timing.",
-            "I am good at logical reasoning.",
-            "I enjoy making and viewing art.",
-            "I am good at organizing things.",
-            "I am interested in how things work.",
-            "I enjoy reading about different subjects.",
-            "I am sensitive to changes in my environment.",
-            "I enjoy working with numbers.",
-            "I can easily see patterns.",
-            "I enjoy exploring new ideas.",
-            "I have a good sense of rhythm.",
-            "I am interested in learning new languages.",
-            "I can easily see the big picture.",
-            "I enjoy using technology.",
-            "I am interested in the human mind.",
-            "I am good at understanding abstract concepts.",
-            "I enjoy discussing philosophical ideas.",
-            "I am curious about the natural world."
-        ];
-
-        const questionsContainer = document.getElementById('questionsContainer');
-
-        questions.forEach((question, index) => {
-            const questionDiv = document.createElement('div');
-            questionDiv.classList.add('question');
-            questionDiv.innerHTML = `
-                <label>${index + 1}. ${question}</label>
-                <div class="options">
-                    <label><input type="radio" name="q${index + 1}" value="1" required> 1</label>
-                    <label><input type="radio" name="q${index + 1}" value="2" required> 2</label>
-                    <label><input type="radio" name="q${index + 1}" value="3" required> 3</label>
-                    <label><input type="radio" name="q${index + 1}" value="4" required> 4</label>
-                    <label><input type="radio" name="q${index + 1}" value="5" required> 5</label>
-                </div>
-            `;
-            questionsContainer.appendChild(questionDiv);
-        });
-
-        document.getElementById('surveyForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const formData = new FormData(event.target);
-            const name = localStorage.getItem('userName');
-            const email = localStorage.getItem('userEmail');
-            const scores = {
-                linguistic: 0,
-                logicalMathematical: 0,
-                musical: 0,
-                spatial: 0,
-                bodilyKinesthetic: 0,
-                interpersonal: 0,
-                intrapersonal: 0,
-                naturalist: 0
-            };
-
-            formData.forEach((value, key) => {
-                const questionIndex = parseInt(key.replace('q', ''));
-                const score = parseInt(value);
-                if ([1, 9, 17, 25, 33, 41, 49].includes(questionIndex)) {
-                    scores.linguistic += score;
-                } else if ([2, 10, 18, 26, 34, 42, 50].includes(questionIndex)) {
-                    scores.logicalMathematical += score;
-                } else if ([3, 11, 19, 27, 35, 43, 51].includes(questionIndex)) {
-                    scores.musical += score;
-                } else if ([4, 12, 20, 28, 36, 44, 52].includes(questionIndex)) {
-                    scores.spatial += score;
-                } else if ([5, 13, 21, 29, 37, 45, 53].includes(questionIndex)) {
-                    scores.bodilyKinesthetic += score;
-                } else if ([6, 14, 22, 30, 38, 46, 54].includes(questionIndex)) {
-                    scores.interpersonal += score;
-                } else if ([7, 15, 23, 31, 39, 47].includes(questionIndex)) {
-                    scores.intrapersonal += score;
-                } else if ([8, 16, 24, 32, 40, 48].includes(questionIndex)) {
-                    scores.naturalist += score;
-                }
-            });
-
-            const totalQuestions = 54;
-            const data = {
-                name: name,
-                email: email,
-                linguistic: ((scores.linguistic / (totalQuestions / 8 * 5)) * 100).toFixed(2),
-                logicalMathematical: ((scores.logicalMathematical / (totalQuestions / 8 * 5)) * 100).toFixed(2),
-                musical: ((scores.musical / (totalQuestions / 8 * 5)) * 100).toFixed(2),
-                spatial: ((scores.spatial / (totalQuestions / 8 * 5)) * 100).toFixed(2),
-                bodilyKinesthetic: ((scores.bodilyKinesthetic / (totalQuestions / 8 * 5)) * 100).toFixed(2),
-                interpersonal: ((scores.interpersonal / (totalQuestions / 8 * 5)) * 100).toFixed(2),
-                intrapersonal: ((scores.intrapersonal / (totalQuestions / 8 * 5)) * 100).toFixed(2),
-                naturalist: ((scores.naturalist / (totalQuestions / 8 * 5)) * 100).toFixed(2)
-            };
-
-            fetch('https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(result => {
-                alert('Survey submitted successfully!');
-                window.location.href = 'thankyou.html';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

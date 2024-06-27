@@ -24,7 +24,30 @@ document.addEventListener('DOMContentLoaded', function() {
         { question: "I enjoy spending time in nature.", category: "naturalist" },
         { question: "I am interested in environmental issues.", category: "naturalist" },
         { question: "I can easily identify different types of plants and animals.", category: "naturalist" },
-        // Add remaining questions here...
+        { question: "I find it easy to put complex ideas into words.", category: "linguistic" },
+        { question: "I enjoy learning new languages.", category: "linguistic" },
+        { question: "I am good at writing stories or essays.", category: "linguistic" },
+        { question: "I enjoy playing with numbers.", category: "logicalMathematical" },
+        { question: "I like to analyze data or statistics.", category: "logicalMathematical" },
+        { question: "I am good at logical reasoning.", category: "logicalMathematical" },
+        { question: "I can read music.", category: "musical" },
+        { question: "I can easily keep rhythm.", category: "musical" },
+        { question: "I enjoy composing or arranging music.", category: "musical" },
+        { question: "I can imagine objects in three dimensions.", category: "spatial" },
+        { question: "I like to solve visual puzzles.", category: "spatial" },
+        { question: "I am good at drawing or sketching.", category: "spatial" },
+        { question: "I have good hand-eye coordination.", category: "bodilyKinesthetic" },
+        { question: "I enjoy building or crafting things.", category: "bodilyKinesthetic" },
+        { question: "I can easily learn new physical skills.", category: "bodilyKinesthetic" },
+        { question: "I am good at mediating conflicts.", category: "interpersonal" },
+        { question: "I enjoy working in teams.", category: "interpersonal" },
+        { question: "I am good at making people feel comfortable.", category: "interpersonal" },
+        { question: "I am self-aware.", category: "intrapersonal" },
+        { question: "I reflect on my experiences to learn from them.", category: "intrapersonal" },
+        { question: "I understand my emotions well.", category: "intrapersonal" },
+        { question: "I have a keen interest in wildlife.", category: "naturalist" },
+        { question: "I am good at observing natural phenomena.", category: "naturalist" },
+        { question: "I enjoy gardening or taking care of plants.", category: "naturalist" }
     ];
 
     const surveyForm = document.getElementById('surveyForm');

@@ -1,69 +1,58 @@
-document.getElementById('surveyForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    const formData = new FormData(event.target);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const results = {};
-    let totalScore = 0;
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('surveyForm').addEventListener('submit', function(event) {
+        event.preventDefault();
 
-    formData.forEach((value, key) => {
-        if (key.startsWith('q')) {
-            totalScore += parseInt(value);
-        }
-    });
+        const formData = new FormData(event.target);
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const totalQuestions = 54;
+        const scores = {
+            linguistic: 0,
+            logicalMathematical: 0,
+            musical: 0,
+            spatial: 0,
+            bodilyKinesthetic: 0,
+            interpersonal: 0,
+            intrapersonal: 0,
+            naturalist: 0
+        };
 
-    const intelligenceCategories = {
-        "Verbal-Linguistic": [7, 16, 25, 34, 43, 52],
-        "Logical-Mathematical": [3, 12, 21, 30, 39, 48],
-        "Visual-Spatial": [9, 18, 27, 36, 45, 54],
-        "Bodily-Kinesthetic": [6, 15, 24, 33, 42, 51],
-        "Musical": [2, 11, 20, 29, 38, 47],
-        "Interpersonal": [5, 14, 23, 32, 41, 50],
-        "Intrapersonal": [4, 13, 22, 31, 40, 49],
-        "Naturalistic": [10, 19, 28, 37, 46, 53]
-    };
-
-    for (const [key, indices] of Object.entries(intelligenceCategories)) {
-        let score = 0;
-        indices.forEach(index => {
-            score += parseInt(formData.get(`q${index}`));
+        formData.forEach((value, key) => {
+            if (key.startsWith('q')) {
+                const [_, type] = key.split('_');
+                scores[type] += parseInt(value);
+            }
         });
-        results[key] = ((score / (indices.length * 5)) * 100).toFixed(2);
-    }
 
-    const sortedResults = Object.entries(results).sort((a, b) => b[1] - a[1]);
-    const top3 = sortedResults.slice(0, 3);
-    
-    let resultMessage = `Name: ${name}\nEmail: ${email}\n\nTop 3 Intelligences:\n`;
-    top3.forEach(([intelligence, percentage], index) => {
-        resultMessage += `${index + 1}. ${intelligence}: ${percentage}%\n`;
-    });
-    resultMessage += `\nOther Intelligences:\n`;
-    sortedResults.slice(3).forEach(([intelligence, percentage]) => {
-        resultMessage += `${intelligence}: ${percentage}%\n`;
-    });
+        const data = {
+            name: name,
+            email: email,
+            linguistic: ((scores.linguistic / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+            logicalMathematical: ((scores.logicalMathematical / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+            musical: ((scores.musical / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+            spatial: ((scores.spatial / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+            bodilyKinesthetic: ((scores.bodilyKinesthetic / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+            interpersonal: ((scores.interpersonal / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+            intrapersonal: ((scores.intrapersonal / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+            naturalist: ((scores.naturalist / (totalQuestions / 8 * 5)) * 100).toFixed(2)
+        };
 
-    const payload = {
-        name: name,
-        email: email,
-        results: JSON.stringify(results)
-    };
-
-    fetch('https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec', {
-        method: 'POST',
-        body: JSON.stringify(payload),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert('Survey submitted successfully!');
-        event.target.reset();
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('There was an error submitting the survey.');
+        fetch('YOUR_GOOGLE_SCRIPT_URL', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.result === 'success') {
+                alert('Survey submitted successfully!');
+                window.location.href = "result.html";
+            } else {
+                alert('Error submitting survey.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     });
 });

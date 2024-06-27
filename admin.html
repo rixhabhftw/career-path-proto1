@@ -2,83 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page - Survey Results</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .container {
-            max-width: 1000px;
-            margin: auto;
-        }
-        h1 {
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <title>Survey Admin</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Survey Results</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Linguistic</th>
-                    <th>Logical-Mathematical</th>
-                    <th>Musical</th>
-                    <th>Spatial</th>
-                    <th>Bodily-Kinesthetic</th>
-                    <th>Interpersonal</th>
-                    <th>Intrapersonal</th>
-                    <th>Naturalist</th>
-                </tr>
-            </thead>
-            <tbody id="resultsTableBody">
-                <!-- Results will be appended here -->
-            </tbody>
-        </table>
-    </div>
-    <script>
-        fetch('https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec')
-            .then(response => response.json())
-            .then(data => {
-                const resultsTableBody = document.getElementById('resultsTableBody');
-                data.forEach(result => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${result.name}</td>
-                        <td>${result.email}</td>
-                        <td>${result.linguistic}%</td>
-                        <td>${result.logicalMathematical}%</td>
-                        <td>${result.musical}%</td>
-                        <td>${result.spatial}%</td>
-                        <td>${result.bodilyKinesthetic}%</td>
-                        <td>${result.interpersonal}%</td>
-                        <td>${result.intrapersonal}%</td>
-                        <td>${result.naturalist}%</td>
-                    `;
-                    resultsTableBody.appendChild(row);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching survey results:', error);
-            });
-    </script>
+    <h1>Survey Results</h1>
+    <div id="results"></div>
+    <script src="admin.js"></script>
 </body>
 </html>

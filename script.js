@@ -12,7 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add the remaining 45 questions here in the same format
     ];
 
-    const questionContainer = document.getElementById('questionContainer');
+  const questionContainer = document.getElementById('questionContainer');
+    const name = localStorage.getItem('name');
+    const email = localStorage.getItem('email');
+
+    document.getElementById('name').value = name;
+    document.getElementById('email').value = email;
 
     questions.forEach((question, index) => {
         const questionDiv = document.createElement('div');
@@ -22,26 +27,26 @@ document.addEventListener('DOMContentLoaded', function() {
         questionLabel.textContent = `${index + 1}. ${question.text}`;
         questionDiv.appendChild(questionLabel);
 
-        const checkboxWrapper = document.createElement('div');
-        checkboxWrapper.classList.add('checkbox-wrapper');
+        const radioContainer = document.createElement('div');
+        radioContainer.classList.add('radio-container');
 
         for (let i = 1; i <= 5; i++) {
-            const radio = document.createElement('input');
-            radio.type = 'radio';
-            radio.id = `q${index + 1}_${question.type}_${i}`;
-            radio.name = `q${index + 1}_${question.type}`;
-            radio.value = i;
-            radio.required = true;
+            const radioInput = document.createElement('input');
+            radioInput.type = 'radio';
+            radioInput.id = `q${index + 1}_${question.type}_${i}`;
+            radioInput.name = `q${index + 1}_${question.type}`;
+            radioInput.value = i;
+            radioInput.required = true;
 
-            const label = document.createElement('label');
-            label.htmlFor = radio.id;
-            label.textContent = i;
+            const radioLabel = document.createElement('label');
+            radioLabel.htmlFor = radioInput.id;
+            radioLabel.textContent = i;
 
-            checkboxWrapper.appendChild(radio);
-            checkboxWrapper.appendChild(label);
+            radioContainer.appendChild(radioInput);
+            radioContainer.appendChild(radioLabel);
         }
 
-        questionDiv.appendChild(checkboxWrapper);
+        questionDiv.appendChild(radioContainer);
         questionContainer.appendChild(questionDiv);
     });
 
@@ -85,20 +90,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         fetch('https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
         .then(response => response.json())
         .then(result => {
             if (result.result === 'success') {
-                alert('Survey submitted successfully!');
-                window.location.href = "result.html";
-            } else {
-                alert('Error submitting survey.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    });
-});
+                window.location.href = 'result.html';
+            } else

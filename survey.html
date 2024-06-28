@@ -15,6 +15,7 @@
             justify-content: center;
             align-items: center;
             color: #fff;
+            overflow-y: scroll;
         }
 
         @keyframes gradient {
@@ -29,47 +30,79 @@
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             width: 80%;
-            max-width: 600px;
-            overflow-y: auto;
-            max-height: 80%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .container h1 {
+            text-align: center;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         .form-group input[type="radio"] {
             margin-right: 10px;
         }
 
-        #submit-button {
-            background: #FFCC70;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+        .form-group label {
+            display: inline-block;
+            margin-right: 15px;
             cursor: pointer;
-            transition: background 0.3s ease;
         }
 
-        #submit-button:hover {
+        .form-group input[type="radio"] {
+            display: none;
+        }
+
+        .form-group input[type="radio"] + label::before {
+            content: "";
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .form-group input[type="radio"]:checked + label::before {
+            background-color: #fff;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #FFCC70;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #000;
+            font-size: 16px;
+            transition: background 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        button:hover {
             background: #C850C0;
+            color: #fff;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Survey</h2>
+        <h1>Intelligence Survey</h1>
         <form id="survey-form">
             <div id="questions-container"></div>
-            <button type="submit" id="submit-button">Submit</button>
+            <button type="submit">Submit</button>
         </form>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>

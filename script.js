@@ -58,9 +58,13 @@ const questions = [
 const totalQuestions = questions.length;
 const questionsPerPage = 10;
 let currentPage = 0;
+let responses = {};
 
 document.addEventListener("DOMContentLoaded", function() {
     displayQuestions();
+    document.getElementById('next').addEventListener('click', nextPage);
+    document.getElementById('prev').addEventListener('click', prevPage);
+    document.getElementById('submit').addEventListener('click', submitQuiz);
 });
 
 function displayQuestions() {
@@ -72,23 +76,26 @@ function displayQuestions() {
 
     for (let i = start; i < end; i++) {
         const question = questions[i];
+        const savedResponse = responses[`question-${question.id}`] || '';
         questionContainer.innerHTML += `
             <div class="question">
                 <label>${question.id}. ${question.text}</label>
-                <input type="radio" name="question-${question.id}" value="1"> 1
-                <input type="radio" name="question-${question.id}" value="2"> 2
-                <input type="radio" name="question-${question.id}" value="3"> 3
-                <input type="radio" name="question-${question.id}" value="4"> 4
-                <input type="radio" name="question-${question.id}" value="5"> 5
+                <input type="radio" name="question-${question.id}" value="1" ${savedResponse == '1' ? 'checked' : ''}> 1
+                <input type="radio" name="question-${question.id}" value="2" ${savedResponse == '2' ? 'checked' : ''}> 2
+                <input type="radio" name="question-${question.id}" value="3" ${savedResponse == '3' ? 'checked' : ''}> 3
+                <input type="radio" name="question-${question.id}" value="4" ${savedResponse == '4' ? 'checked' : ''}> 4
+                <input type="radio" name="question-${question.id}" value="5" ${savedResponse == '5' ? 'checked' : ''}> 5
             </div>
         `;
     }
 
     document.getElementById('prev').style.display = currentPage > 0 ? 'inline-block' : 'none';
     document.getElementById('next').style.display = (end < totalQuestions) ? 'inline-block' : 'none';
+    document.getElementById('submit').style.display = (end === totalQuestions) ? 'inline-block' : 'none';
 }
 
 function nextPage() {
+    saveResponses();
     if ((currentPage + 1) * questionsPerPage < totalQuestions) {
         currentPage++;
         displayQuestions();
@@ -96,8 +103,78 @@ function nextPage() {
 }
 
 function prevPage() {
+    saveResponses();
     if (currentPage > 0) {
         currentPage--;
         displayQuestions();
     }
+}
+
+function saveResponses() {
+    const start = currentPage * questionsPerPage;
+    const end = Math.min(start + questionsPerPage, totalQuestions);
+
+    for (let i = start; i < end; i++) {
+        const question = questions[i];
+        const radios = document.getElementsByName(`question-${question.id}`);
+        for (const radio of radios) {
+            if (radio.checked) {
+                responses[`question-${question.id}`] = radio.value;
+            }
+        }
+    }
+}
+
+function submitQuiz() {
+    saveResponses();
+
+    const scores = {
+        linguistic: 0,
+        logicalMathematical: 0,
+        musical: 0,
+        spatial: 0,
+        bodilyKinesthetic: 0,
+        interpersonal: 0,
+        intrapersonal: 0,
+        naturalist: 0
+    };
+
+    for (const [key, value] of Object.entries(responses)) {
+        const questionId = parseInt(key.split('-')[1]);
+        const score = parseInt(value);
+
+        if (questionId <= 7) {
+            scores.linguistic += score;
+        } else if (questionId <= 14) {
+            scores.logicalMathematical += score;
+        } else if (questionId <= 21) {
+            scores.musical += score;
+        } else if (questionId <= 28) {
+            scores.spatial += score;
+        } else if (questionId <= 35) {
+            scores.bodilyKinesthetic += score;
+        } else if (questionId <= 42) {
+            scores.interpersonal += score;
+        } else if (questionId <= 49) {
+            scores.intrapersonal += score;
+        } else {
+            scores.naturalist += score;
+        }
+    }
+
+    const data = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        linguistic: ((scores.linguistic / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+        logicalMathematical: ((scores.logicalMathematical / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+        musical: ((scores.musical / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+        spatial: ((scores.spatial / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+        bodilyKinesthetic: ((scores.bodilyKinesthetic / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+        intrapersonal: ((scores.intrapersonal / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+        naturalist: ((scores.naturalist / (totalQuestions / 8 * 5)) * 100).toFixed(2)
+    };
+
+    google.script.run.saveSurveyResults(data);
+    alert('Survey submitted successfully!');
+    window.location.href = 'index.html';
 }

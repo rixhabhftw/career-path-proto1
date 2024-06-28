@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
             naturalist: ((scores.naturalist / (totalQuestions / 8 * 5)) * 100).toFixed(2)
         };
 
-        fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)

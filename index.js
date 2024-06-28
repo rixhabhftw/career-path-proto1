@@ -1,4 +1,4 @@
-document.getElementById('user-form').addEventListener('submit', function(event) {
+document.getElementById('start-form').addEventListener('submit', function(event) {
     event.preventDefault();
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;

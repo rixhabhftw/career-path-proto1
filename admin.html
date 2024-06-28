@@ -2,11 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Survey Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .category {
+            margin-bottom: 20px;
+        }
+        .category h2 {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
     <h1>Survey Results</h1>
     <div id="results"></div>
+
     <script src="admin.js"></script>
 </body>
 </html>

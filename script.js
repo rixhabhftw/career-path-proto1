@@ -43,14 +43,16 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let i = 1; i <= 5; i++) {
             const radio = document.createElement('input');
             radio.type = 'radio';
+            radio.id = `q${index + 1}_${i}`;
             radio.name = `q${index + 1}`;
             radio.value = i;
             radio.required = true;
 
             const radioLabel = document.createElement('label');
             radioLabel.textContent = i;
-            radioLabel.appendChild(radio);
+            radioLabel.setAttribute('for', `q${index + 1}_${i}`);
 
+            formGroup.appendChild(radio);
             formGroup.appendChild(radioLabel);
         }
 

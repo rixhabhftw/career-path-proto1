@@ -11,14 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 userDiv.innerHTML = `
                     <h2>${user.name} (${user.email})</h2>
-                    <p><strong>Linguistic:</strong> ${user.linguistic}%</p>
-                    <p><strong>Logical-Mathematical:</strong> ${user.logicalMathematical}%</p>
-                    <p><strong>Musical:</strong> ${user.musical}%</p>
-                    <p><strong>Spatial:</strong> ${user.spatial}%</p>
-                    <p><strong>Bodily-Kinesthetic:</strong> ${user.bodilyKinesthetic}%</p>
-                    <p><strong>Interpersonal:</strong> ${user.interpersonal}%</p>
-                    <p><strong>Intrapersonal:</strong> ${user.intrapersonal}%</p>
-                    <p><strong>Naturalist:</strong> ${user.naturalist}%</p>
+                    <div class="category">Linguistic:</div><p>${user.linguistic}%</p>
+                    <div class="category">Logical-Mathematical:</div><p>${user.logicalMathematical}%</p>
+                    <div class="category">Musical:</div><p>${user.musical}%</p>
+                    <div class="category">Spatial:</div><p>${user.spatial}%</p>
+                    <div class="category">Bodily-Kinesthetic:</div><p>${user.bodilyKinesthetic}%</p>
+                    <div class="category">Interpersonal:</div><p>${user.interpersonal}%</p>
+                    <div class="category">Intrapersonal:</div><p>${user.intrapersonal}%</p>
+                    <div class="category">Naturalist:</div><p>${user.naturalist}%</p>
                 `;
 
                 resultsDiv.appendChild(userDiv);

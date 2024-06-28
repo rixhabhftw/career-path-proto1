@@ -1,5 +1,5 @@
-document.getElementById('userInfoForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+document.getElementById('user-form').addEventListener('submit', function(event) {
+    event.preventDefault();
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     localStorage.setItem('name', name);

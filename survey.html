@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,7 +16,6 @@
             justify-content: center;
             align-items: center;
             color: #fff;
-            overflow-y: scroll;
         }
 
         @keyframes gradient {
@@ -29,51 +29,31 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            width: 80%;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            text-align: center;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .container h1 {
-            text-align: center;
-        }
-
-        .form-group {
             margin-bottom: 20px;
         }
 
-        .form-group label {
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question label {
             display: block;
             margin-bottom: 10px;
         }
 
-        .form-group input[type="radio"] {
-            margin-right: 10px;
+        .question input[type="radio"] {
+            margin: 0 5px;
         }
 
-        .form-group label {
-            display: inline-block;
-            margin-right: 15px;
-            cursor: pointer;
-        }
-
-        .form-group input[type="radio"] {
-            display: none;
-        }
-
-        .form-group input[type="radio"] + label::before {
-            content: "";
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 2px solid #fff;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-
-        .form-group input[type="radio"]:checked + label::before {
-            background-color: #fff;
+        .navigation {
+            display: flex;
+            justify-content: space-between;
         }
 
         button {
@@ -85,8 +65,6 @@
             color: #000;
             font-size: 16px;
             transition: background 0.3s ease;
-            display: block;
-            margin: 0 auto;
         }
 
         button:hover {
@@ -97,11 +75,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>Intelligence Survey</h1>
-        <form id="survey-form">
-            <div id="questions-container"></div>
-            <button type="submit">Submit</button>
-        </form>
+        <h1>Survey</h1>
+        <div id="question-container"></div>
+        <div class="navigation">
+            <button id="prev" onclick="prevPage()">Previous</button>
+            <button id="next" onclick="nextPage()">Next</button>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>

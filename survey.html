@@ -3,22 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intelligence Survey</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Survey</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #4158D0, #C850C0, #FFCC70);
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 80%;
+            max-width: 600px;
+            overflow-y: auto;
+            max-height: 80%;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        #submit-button {
+            background: #FFCC70;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        #submit-button:hover {
+            background: #C850C0;
+        }
+    </style>
 </head>
 <body>
-    <div id="particles-js"></div>
     <div class="container">
-        <h1>Intelligence Survey</h1>
+        <h2>Survey</h2>
         <form id="survey-form">
-            <div id="questions-container">
-                <!-- Questions will be inserted here by script.js -->
-            </div>
-            <button type="submit">Submit Survey</button>
+            <div id="questions-container"></div>
+            <button type="submit" id="submit-button">Submit</button>
         </form>
     </div>
-    <script src="particles.min.js"></script>
-    <script src="particles-config.js"></script>
+
     <script src="script.js"></script>
 </body>
 </html>

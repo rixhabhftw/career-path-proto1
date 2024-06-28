@@ -15,7 +15,10 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
-    width: 300px;
+    width: 80%;
+    max-width: 800px;
+    overflow-y: auto;
+    max-height: 90vh;
 }
 
 h1 {
@@ -24,9 +27,12 @@ h1 {
     color: #333;
 }
 
+#questions-container {
+    text-align: left;
+}
+
 .form-group {
     margin-bottom: 20px;
-    text-align: left;
 }
 
 label {
@@ -35,13 +41,8 @@ label {
     color: #333;
 }
 
-input[type="text"],
-input[type="email"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+input[type="radio"] {
+    margin-right: 10px;
 }
 
 button {
@@ -52,6 +53,7 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    margin-top: 20px;
 }
 
 button:hover {

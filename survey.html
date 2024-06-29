@@ -1,87 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(45deg, #4158D0, #C850C0, #FFCC70);
-            animation: gradient 15s ease infinite;
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .container {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .container h1 {
-            margin-bottom: 20px;
-        }
-
-        .question {
-            margin-bottom: 20px;
-        }
-
-        .question label {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .question input[type="radio"] {
-            margin: 0 5px;
-        }
-
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        button {
-            padding: 10px 20px;
-            background: #FFCC70;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            color: #000;
-            font-size: 16px;
-            transition: background 0.3s ease;
-        }
-
-        button:hover {
-            background: #C850C0;
-            color: #fff;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survey</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Survey</h1>
-        <div id="question-container"></div>
-        <div class="navigation">
-            <button id="prev" onclick="prevPage()">Previous</button>
-            <button id="next" onclick="nextPage()">Next</button>
-        </div>
-    </div>
-    <script src="script.js"></script>
+  <div id="survey-container" class="survey-container"></div>
+  <button id="previous-button" class="nav-button">Previous</button>
+  <button id="next-button" class="nav-button">Next</button>
+  <button id="submit-button" class="nav-button">Submit</button>
+  <script src="script.js"></script>
 </body>
 </html>

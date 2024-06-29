@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
             naturalist: ((scores.naturalist / (totalQuestions / 8 * 5)) * 100).toFixed(2)
         };
 
-        fetch("https://script.google.com/macros/s/YOUR_GOOGLE_SCRIPT_ID/exec", {
+        fetch("https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec", {
             method: "POST",
             mode: "no-cors",
             headers: {

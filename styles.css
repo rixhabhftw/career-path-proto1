@@ -1,73 +1,53 @@
 body {
     font-family: Arial, sans-serif;
-    color: #fff;
+    background: linear-gradient(45deg, #f3ec78, #af4261);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    overflow: hidden;
-    position: relative;
-}
-
-#particles-js {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
 }
 
 .container {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 40px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 600px;
+}
+
+.survey {
     text-align: center;
-    width: 80%;
-    max-width: 800px;
-    overflow-y: auto;
-    max-height: 90vh;
+    color: white;
 }
 
 h1 {
     margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
 }
 
-#questions-container {
-    text-align: left;
-}
-
-.form-group {
-    margin-bottom: 20px;
+.question {
+    margin-bottom: 15px;
 }
 
 label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-}
-
-input[type="radio"] {
     margin-right: 10px;
 }
 
 button {
-    background-color: #4158D0;
-    color: #fff;
-    padding: 10px 20px;
+    background: #4CAF50;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
     font-size: 16px;
-    margin-top: 20px;
+    margin: 5px 2px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 button:hover {
-    background-color: #C850C0;
-}
-
-button:focus {
-    outline: none;
+    background: #45a049;
 }

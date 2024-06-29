@@ -1,6 +1,15 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const questions = [
-        { question: "1. I enjoy reading books.", category: "linguistic" },
+document.addEventListener('DOMContentLoaded', function() {
+  const surveyContainer = document.getElementById('survey-container');
+  const previousButton = document.getElementById('previous-button');
+  const nextButton = document.getElementById('next-button');
+  const submitButton = document.getElementById('submit-button');
+  
+  const questionsPerPage = 10;
+  let currentPage = 0;
+
+  const questions = [
+    // Your list of questions (include all 54 here)
+            { question: "1. I enjoy reading books.", category: "linguistic" },
         { question: "2. I am good at mathematics.", category: "logicalMathematical" },
         { question: "3. I can remember song lyrics easily.", category: "musical" },
         { question: "4. I am good at solving puzzles.", category: "logicalMathematical" },
@@ -56,139 +65,74 @@ document.addEventListener("DOMContentLoaded", function () {
         { question: "54. I enjoy physical challenges.", category: "bodilyKinesthetic" }
     ];
 
-    const totalQuestions = questions.length;
+  let scores = {
+    linguistic: 0,
+    logicalMathematical: 0,
+    musical: 0,
+    spatial: 0,
+    bodilyKinesthetic: 0,
+    interpersonal: 0,
+    intrapersonal: 0,
+    naturalist: 0
+  };
 
-    let currentPage = 0;
-    const questionsPerPage = 10;
-    let answers = {};
+  function renderQuestions() {
+    surveyContainer.innerHTML = '';
+    const start = currentPage * questionsPerPage;
+    const end = Math.min(start + questionsPerPage, questions.length);
 
-    function displayQuestions() {
-        const questionContainer = document.getElementById("question-container");
-        questionContainer.innerHTML = "";
+    for (let i = start; i < end; i++) {
+      const question = questions[i];
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `
+        <p>${question.question}</p>
+        <label><input type="radio" name="question${i}" value="1"> 1</label>
+        <label><input type="radio" name="question${i}" value="2"> 2</label>
+        <label><input type="radio" name="question${i}" value="3"> 3</label>
+        <label><input type="radio" name="question${i}" value="4"> 4</label>
+        <label><input type="radio" name="question${i}" value="5"> 5</label>
+      `;
+      surveyContainer.appendChild(div);
+    }
 
-        const start = currentPage * questionsPerPage;
-        const end = Math.min(start + questionsPerPage, totalQuestions);
+    previousButton.style.display = currentPage === 0 ? 'none' : 'inline-block';
+    nextButton.style.display = currentPage === Math.ceil(questions.length / questionsPerPage) - 1 ? 'none' : 'inline-block';
+    submitButton.style.display = currentPage === Math.ceil(questions.length / questionsPerPage) - 1 ? 'inline-block' : 'none';
+  }
 
-        for (let i = start; i < end; i++) {
-            const q = questions[i];
-            const questionDiv = document.createElement("div");
-            questionDiv.classList.add("question");
+  function gatherResponses() {
+    const start = currentPage * questionsPerPage;
+    const end = Math.min(start + questionsPerPage, questions.length);
 
-            questionDiv.innerHTML = `
-                <p>${q.question}</p>
-                <div>
-                    <label><input type="radio" name="q${i}" value="1" ${answers[`q${i}`] === "1" ? "checked" : ""}> 1</label>
-                    <label><input type="radio" name="q${i}" value="2" ${answers[`q${i}`] === "2" ? "checked" : ""}> 2</label>
-                    <label><input type="radio" name="q${i}" value="3" ${answers[`q${i}`] === "3" ? "checked" : ""}> 3</label>
-                    <label><input type="radio" name="q${i}" value="4" ${answers[`q${i}`] === "4" ? "checked" : ""}> 4</label>
-                    <label><input type="radio" name="q${i}" value="5" ${answers[`q${i}`] === "5" ? "checked" : ""}> 5</label>
-                </div>
-            `;
-
-            questionContainer.appendChild(questionDiv);
+    for (let i = start; i < end; i++) {
+      const question = questions[i];
+      const radios = document.getElementsByName(`question${i}`);
+      for (const radio of radios) {
+        if (radio.checked) {
+          scores[question.category] += parseInt(radio.value);
+          break;
         }
-
-        document.getElementById("prev").style.display = currentPage === 0 ? "none" : "block";
-        document.getElementById("next").style.display = end === totalQuestions ? "none" : "block";
-        document.getElementById("submit").style.display = end === totalQuestions ? "block" : "none";
+      }
     }
+  }
 
-    function saveAnswers() {
-        const start = currentPage * questionsPerPage;
-        const end = Math.min(start + questionsPerPage, totalQuestions);
+  nextButton.addEventListener('click', () => {
+    gatherResponses();
+    currentPage++;
+    renderQuestions();
+  });
 
-        for (let i = start; i < end; i++) {
-            const radios = document.getElementsByName(`q${i}`);
-            for (const radio of radios) {
-                if (radio.checked) {
-                    answers[`q${i}`] = radio.value;
-                }
-            }
-        }
-    }
+  previousButton.addEventListener('click', () => {
+    currentPage--;
+    renderQuestions();
+  });
 
-    function nextPage() {
-        saveAnswers();
-        currentPage++;
-        displayQuestions();
-    }
+  submitButton.addEventListener('click', () => {
+    gatherResponses();
+    // Submit form data logic
+    alert('Survey submitted!');
+  });
 
-    function prevPage() {
-        saveAnswers();
-        currentPage--;
-        displayQuestions();
-    }
-
-    function submitSurvey() {
-        saveAnswers();
-
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-
-        const scores = {
-            linguistic: 0,
-            logicalMathematical: 0,
-            musical: 0,
-            spatial: 0,
-            bodilyKinesthetic: 0,
-            interpersonal: 0,
-            intrapersonal: 0,
-            naturalist: 0
-        };
-
-        for (const key in answers) {
-            const index = parseInt(key.replace("q", ""));
-            const category = questions[index].category;
-            scores[category] += parseInt(answers[key]);
-        }
-
-        const data = {
-            name: name,
-            email: email,
-            linguistic: ((scores.linguistic / (totalQuestions / 8 * 5)) * 100).toFixed(2),
-            logicalMathematical: ((scores.logicalMathematical / (totalQuestions / 8 * 5)) * 100).toFixed(2),
-            musical: ((scores.musical / (totalQuestions / 8 * 5)) * 100).toFixed(2),
-            spatial: ((scores.spatial / (totalQuestions / 8 * 5)) * 100),
-        bodilyKinesthetic: ((scores.bodilyKinesthetic / (totalQuestions / 8 * 5)) * 100).toFixed(2),
-        interpersonal: ((scores.interpersonal / (totalQuestions / 8 * 5)) * 100).toFixed(2),
-        intrapersonal: ((scores.intrapersonal / (totalQuestions / 8 * 5)) * 100).toFixed(2),
-        naturalist: ((scores.naturalist / (totalQuestions / 8 * 5)) * 100).toFixed(2)
-    };
-
-    fetch('https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(result => {
-        if (result.result === 'success') {
-            alert("Survey submitted successfully!");
-            window.location.href = "index.html";
-        } else {
-            alert("Error submitting survey. Please try again.");
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert("Error submitting survey. Please try again.");
-    });
-}
-
-document.getElementById("start-button").addEventListener("click", function () {
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-
-    if (name && email) {
-        document.getElementById("user-info").style.display = "none";
-        document.getElementById("survey-container").style.display = "block";
-        displayQuestions();
-    } else {
-        alert("Please enter your name and email.");
-    }
-});
-
-document.getElementById("next").addEventListener("click", nextPage);
-document.getElementById("prev").addEventListener("click", prevPage);
-document.getElementById("submit").addEventListener("click", submitSurvey);
+  renderQuestions();
 });

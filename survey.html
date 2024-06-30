@@ -3,17 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey</title>
+    <title>Multiple Intelligence Survey</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        .question label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .options {
+            display: flex;
+            justify-content: space-between;
+        }
+        .options label {
+            margin-right: 10px;
+        }
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #C850C0;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="survey">
-            <h1>Survey</h1>
-            <div id="survey-form"></div>
-            <button id="prev-btn">Previous</button>
-            <button id="next-btn">Next</button>
-            <button id="submit-btn">Submit</button>
+        <h1>Multiple Intelligence Survey</h1>
+        <h2>Enter your details to start the survey</h2>
+        <div id="user-details">
+            <div class="question">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="question">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+            </div>
+            <button class="submit-button" onclick="startSurvey()">Start Survey</button>
+        </div>
+        <div id="survey-questions" style="display: none;">
+            <form id="surveyForm">
+                <!-- Questions will be inserted here by script.js -->
+            </form>
+            <button class="submit-button" onclick="submitSurvey()">Submit Survey</button>
         </div>
     </div>
     <script src="script.js"></script>

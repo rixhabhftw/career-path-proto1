@@ -1,138 +1,152 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const surveyContainer = document.getElementById('survey-container');
-  const previousButton = document.getElementById('previous-button');
-  const nextButton = document.getElementById('next-button');
-  const submitButton = document.getElementById('submit-button');
-  
-  const questionsPerPage = 10;
-  let currentPage = 0;
-
-  const questions = [
-    // Your list of questions (include all 54 here)
-            { question: "1. I enjoy reading books.", category: "linguistic" },
-        { question: "2. I am good at mathematics.", category: "logicalMathematical" },
-        { question: "3. I can remember song lyrics easily.", category: "musical" },
-        { question: "4. I am good at solving puzzles.", category: "logicalMathematical" },
-        { question: "5. I enjoy painting or drawing.", category: "spatial" },
-        { question: "6. I like playing sports.", category: "bodilyKinesthetic" },
-        { question: "7. I can sense others' feelings easily.", category: "interpersonal" },
-        { question: "8. I enjoy being alone and reflecting.", category: "intrapersonal" },
-        { question: "9. I like hiking and exploring nature.", category: "naturalist" },
-        { question: "10. I am good at public speaking.", category: "linguistic" },
-        { question: "11. I enjoy doing experiments.", category: "logicalMathematical" },
-        { question: "12. I play a musical instrument.", category: "musical" },
-        { question: "13. I can easily visualize objects in my mind.", category: "spatial" },
-        { question: "14. I enjoy physical activities.", category: "bodilyKinesthetic" },
-        { question: "15. I can work well in a team.", category: "interpersonal" },
-        { question: "16. I understand my own emotions well.", category: "intrapersonal" },
-        { question: "17. I am interested in environmental issues.", category: "naturalist" },
-        { question: "18. I like writing stories or poetry.", category: "linguistic" },
-        { question: "19. I am good at logical reasoning.", category: "logicalMathematical" },
-        { question: "20. I can identify different musical notes.", category: "musical" },
-        { question: "21. I enjoy designing or building things.", category: "spatial" },
-        { question: "22. I am skilled at physical coordination.", category: "bodilyKinesthetic" },
-        { question: "23. I am good at resolving conflicts.", category: "interpersonal" },
-        { question: "24. I enjoy spending time alone.", category: "intrapersonal" },
-        { question: "25. I love animals and plants.", category: "naturalist" },
-        { question: "26. I have a good vocabulary.", category: "linguistic" },
-        { question: "27. I can solve mathematical problems quickly.", category: "logicalMathematical" },
-        { question: "28. I can recognize different instruments in a song.", category: "musical" },
-        { question: "29. I have a good sense of direction.", category: "spatial" },
-        { question: "30. I like dancing.", category: "bodilyKinesthetic" },
-        { question: "31. I am empathetic towards others.", category: "interpersonal" },
-        { question: "32. I keep a journal or diary.", category: "intrapersonal" },
-        { question: "33. I enjoy gardening.", category: "naturalist" },
-        { question: "34. I can express myself clearly in writing.", category: "linguistic" },
-        { question: "35. I am good at chess or strategy games.", category: "logicalMathematical" },
-        { question: "36. I have a good ear for music.", category: "musical" },
-        { question: "37. I enjoy visual arts.", category: "spatial" },
-        { question: "38. I am physically active.", category: "bodilyKinesthetic" },
-        { question: "39. I am good at understanding others.", category: "interpersonal" },
-        { question: "40. I often reflect on my thoughts.", category: "intrapersonal" },
-        { question: "41. I like studying ecosystems.", category: "naturalist" },
-        { question: "42. I am good at storytelling.", category: "linguistic" },
-        { question: "43. I excel at science experiments.", category: "logicalMathematical" },
-        { question: "44. I can easily identify rhythms.", category: "musical" },
-        { question: "45. I am good at assembling things.", category: "spatial" },
-        { question: "46. I have good balance and coordination.", category: "bodilyKinesthetic" },
-        { question: "47. I can resolve disputes effectively.", category: "interpersonal" },
-        { question: "48. I enjoy deep thinking.", category: "intrapersonal" },
-        { question: "49. I am concerned about conservation.", category: "naturalist" },
-        { question: "50. I like debating.", category: "linguistic" },
-        { question: "51. I enjoy working with numbers.", category: "logicalMathematical" },
-        { question: "52. I appreciate different music genres.", category: "musical" },
-        { question: "53. I am good at spatial orientation.", category: "spatial" },
-        { question: "54. I enjoy physical challenges.", category: "bodilyKinesthetic" }
+document.addEventListener("DOMContentLoaded", function() {
+    const questions = [
+        // Linguistic
+        { question: "I enjoy word games like Scrabble, Boggle, and others.", category: "Linguistic" },
+        { question: "I remember things better if I write them down.", category: "Linguistic" },
+        { question: "I enjoy reading books, magazines, or web articles.", category: "Linguistic" },
+        { question: "I am a good speller.", category: "Linguistic" },
+        { question: "I like to write stories, poems, or journal entries.", category: "Linguistic" },
+        { question: "I have a good vocabulary.", category: "Linguistic" },
+        { question: "I enjoy learning new words.", category: "Linguistic" },
+        
+        // Logical-Mathematical
+        { question: "I can easily do calculations in my head.", category: "LogicalMathematical" },
+        { question: "I like to solve puzzles and brain teasers.", category: "LogicalMathematical" },
+        { question: "I enjoy games that involve strategy and planning.", category: "LogicalMathematical" },
+        { question: "I am good at math.", category: "LogicalMathematical" },
+        { question: "I can find patterns in things easily.", category: "LogicalMathematical" },
+        { question: "I enjoy conducting experiments.", category: "LogicalMathematical" },
+        { question: "I can explain things logically.", category: "LogicalMathematical" },
+        
+        // Musical
+        { question: "I enjoy listening to music.", category: "Musical" },
+        { question: "I can recognize musical notes and patterns.", category: "Musical" },
+        { question: "I can play a musical instrument.", category: "Musical" },
+        { question: "I enjoy singing.", category: "Musical" },
+        { question: "I can remember melodies and lyrics easily.", category: "Musical" },
+        { question: "I can compose music or write songs.", category: "Musical" },
+        { question: "I am sensitive to sounds and rhythms.", category: "Musical" },
+        
+        // Spatial
+        { question: "I can easily read maps and find my way around.", category: "Spatial" },
+        { question: "I enjoy drawing and creating visual art.", category: "Spatial" },
+        { question: "I can visualize things clearly in my mind.", category: "Spatial" },
+        { question: "I am good at solving jigsaw puzzles.", category: "Spatial" },
+        { question: "I have a good sense of direction.", category: "Spatial" },
+        { question: "I enjoy watching movies and visual media.", category: "Spatial" },
+        { question: "I can create mental images easily.", category: "Spatial" },
+        
+        // Bodily-Kinesthetic
+        { question: "I enjoy physical activities like sports or dance.", category: "BodilyKinesthetic" },
+        { question: "I am good at hand-eye coordination tasks.", category: "BodilyKinesthetic" },
+        { question: "I enjoy working with my hands.", category: "BodilyKinesthetic" },
+        { question: "I can remember things better when I move around.", category: "BodilyKinesthetic" },
+        { question: "I have good balance and agility.", category: "BodilyKinesthetic" },
+        { question: "I can perform tasks that require fine motor skills.", category: "BodilyKinesthetic" },
+        { question: "I enjoy building and constructing things.", category: "BodilyKinesthetic" },
+        
+        // Interpersonal
+        { question: "I am good at understanding and relating to others.", category: "Interpersonal" },
+        { question: "I enjoy working in teams or groups.", category: "Interpersonal" },
+        { question: "I am a good listener.", category: "Interpersonal" },
+        { question: "I can easily resolve conflicts between people.", category: "Interpersonal" },
+        { question: "I enjoy teaching or helping others.", category: "Interpersonal" },
+        { question: "I can sense the feelings and moods of others.", category: "Interpersonal" },
+        { question: "I have strong communication skills.", category: "Interpersonal" },
+        
+        // Intrapersonal
+        { question: "I am aware of my own strengths and weaknesses.", category: "Intrapersonal" },
+        { question: "I enjoy spending time alone reflecting.", category: "Intrapersonal" },
+        { question: "I set goals for myself and work towards them.", category: "Intrapersonal" },
+        { question: "I understand my own emotions well.", category: "Intrapersonal" },
+        { question: "I have a strong sense of self-discipline.", category: "Intrapersonal" },
+        { question: "I am good at self-motivation.", category: "Intrapersonal" },
+        { question: "I am aware of my own values and beliefs.", category: "Intrapersonal" },
+        
+        // Naturalist
+        { question: "I enjoy spending time in nature.", category: "Naturalist" },
+        { question: "I am good at identifying different plants and animals.", category: "Naturalist" },
+        { question: "I am concerned about environmental issues.", category: "Naturalist" },
+        { question: "I enjoy gardening or working with plants.", category: "Naturalist" },
+        { question: "I can recognize patterns in nature.", category: "Naturalist" },
+        { question: "I enjoy learning about the natural world.", category: "Naturalist" },
+        { question: "I can easily classify different species.", category: "Naturalist" }
     ];
 
-  let scores = {
-    linguistic: 0,
-    logicalMathematical: 0,
-    musical: 0,
-    spatial: 0,
-    bodilyKinesthetic: 0,
-    interpersonal: 0,
-    intrapersonal: 0,
-    naturalist: 0
-  };
+    const container = document.getElementById("questions-container");
+    questions.forEach((q, index) => {
+        const questionElem = document.createElement("div");
+        questionElem.classList.add("question");
 
-  function renderQuestions() {
-    surveyContainer.innerHTML = '';
-    const start = currentPage * questionsPerPage;
-    const end = Math.min(start + questionsPerPage, questions.length);
+        const questionText = document.createElement("p");
+        questionText.textContent = `${index + 1}. ${q.question}`;
+        questionElem.appendChild(questionText);
 
-    for (let i = start; i < end; i++) {
-      const question = questions[i];
-      const div = document.createElement('div');
-      div.className = 'question';
-      div.innerHTML = `
-        <p>${question.question}</p>
-        <label><input type="radio" name="question${i}" value="1"> 1</label>
-        <label><input type="radio" name="question${i}" value="2"> 2</label>
-        <label><input type="radio" name="question${i}" value="3"> 3</label>
-        <label><input type="radio" name="question${i}" value="4"> 4</label>
-        <label><input type="radio" name="question${i}" value="5"> 5</label>
-      `;
-      surveyContainer.appendChild(div);
-    }
-
-    previousButton.style.display = currentPage === 0 ? 'none' : 'inline-block';
-    nextButton.style.display = currentPage === Math.ceil(questions.length / questionsPerPage) - 1 ? 'none' : 'inline-block';
-    submitButton.style.display = currentPage === Math.ceil(questions.length / questionsPerPage) - 1 ? 'inline-block' : 'none';
-  }
-
-  function gatherResponses() {
-    const start = currentPage * questionsPerPage;
-    const end = Math.min(start + questionsPerPage, questions.length);
-
-    for (let i = start; i < end; i++) {
-      const question = questions[i];
-      const radios = document.getElementsByName(`question${i}`);
-      for (const radio of radios) {
-        if (radio.checked) {
-          scores[question.category] += parseInt(radio.value);
-          break;
+        for (let i = 1; i <= 5; i++) {
+            const optionLabel = document.createElement("label");
+            optionLabel.classList.add("checkbox-wrapper");
+            optionLabel.innerHTML = `
+                <input type="checkbox" name="q${index + 1}" value="${i}">
+                <span class="tick_mark"></span>
+            `;
+            questionElem.appendChild(optionLabel);
         }
-      }
-    }
-  }
 
-  nextButton.addEventListener('click', () => {
-    gatherResponses();
-    currentPage++;
-    renderQuestions();
-  });
+        container.appendChild(questionElem);
+    });
 
-  previousButton.addEventListener('click', () => {
-    currentPage--;
-    renderQuestions();
-  });
+    document.getElementById("submit-button").addEventListener("click", function() {
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
 
-  submitButton.addEventListener('click', () => {
-    gatherResponses();
-    // Submit form data logic
-    alert('Survey submitted!');
-  });
+        const scores = {
+            Linguistic: 0,
+            LogicalMathematical: 0,
+            Musical: 0,
+            Spatial: 0,
+            BodilyKinesthetic: 0,
+            Interpersonal: 0,
+            Intrapersonal: 0,
+            Naturalist: 0
+        };
 
-  renderQuestions();
+        questions.forEach((q, index) => {
+            const checkboxes = document.getElementsByName(`q${index + 1}`);
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    scores[q.category] += parseInt(checkbox.value);
+                }
+            });
+        });
+
+        const totalQuestions = questions.length;
+        const data = {
+            name: name,
+            email: email,
+            linguistic: ((scores.Linguistic / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+            logicalMathematical: ((scores.LogicalMathematical / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+            musical: ((scores.Musical / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+            spatial: ((scores.Spatial / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+            bodilyKinesthetic: ((scores.BodilyKinesthetic / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+            interpersonal: ((scores.Interpersonal / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+            intrapersonal: ((scores.Intrapersonal / (totalQuestions / 8 * 5)) * 100).toFixed(2),
+            naturalist: ((scores.Naturalist / (totalQuestions / 8 * 5)) * 100).toFixed(2)
+        };
+
+        fetch("https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            alert("Survey submitted successfully!");
+            console.log(result);
+        })
+        .catch(error => {
+            console.error("Error submitting survey:", error);
+        });
+    });
 });

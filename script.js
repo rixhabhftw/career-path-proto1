@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
             naturalist: ((scores.Naturalist / (totalQuestions / 8 * 5)) * 100).toFixed(2)
         };
 
-        fetch("https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec", {
+        fetch("https://script.google.com/macros/s/AKfycbzxVdzzqMjKoSqKngsh5eZpuKWXABlw_oltkjgR1zpyeC3-Vf7iLbpCUwyAKdDvDgoWzw/exec", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

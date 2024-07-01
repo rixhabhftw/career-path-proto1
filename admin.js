@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec')
+    fetch('https://script.google.com/macros/s/AKfycbxrE3kbMG00c_u10iHnRORoWPN_tSIg2pAdglq75CnZXZstEcTVrUHkdSFd91mpWMRvpw/exec')
         .then(response => response.json())
         .then(data => {
             const resultsContainer = document.getElementById('resultsContainer');

@@ -1,36 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch("https://script.google.com/macros/s/AKfycbzxVdzzqMjKoSqKngsh5eZpuKWXABlw_oltkjgR1zpyeC3-Vf7iLbpCUwyAKdDvDgoWzw/exec")
+    fetch('https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec')
         .then(response => response.json())
         .then(data => {
-            const resultsContainer = document.getElementById('results');
+            const resultsContainer = document.getElementById('resultsContainer');
+            data.forEach((item, index) => {
+                const resultElement = document.createElement('div');
+                resultElement.classList.add('result');
 
-            data.forEach(user => {
-                const userResult = document.createElement('div');
-                userResult.classList.add('user-result');
+                resultElement.innerHTML = `
+                    <h2>User ${index + 1}</h2>
+                    <p><strong>Name:</strong> ${item.name}</p>
+                    <p><strong>Email:</strong> ${item.email}</p>
+                    <p><strong>Linguistic:</strong> ${item.linguistic}%</p>
+                    <p><strong>Logical-Mathematical:</strong> ${item.logicalMathematical}%</p>
+                    <p><strong>Musical:</strong> ${item.musical}%</p>
+                    <p><strong>Spatial:</strong> ${item.spatial}%</p>
+                    <p><strong>Bodily-Kinesthetic:</strong> ${item.bodilyKinesthetic}%</p>
+                    <p><strong>Interpersonal:</strong> ${item.interpersonal}%</p>
+                    <p><strong>Intrapersonal:</strong> ${item.intrapersonal}%</p>
+                    <p><strong>Naturalist:</strong> ${item.naturalist}%</p>
+                `;
 
-                const userName = document.createElement('h3');
-                userName.textContent = `Name: ${user.name} - Email: ${user.email}`;
-                userResult.appendChild(userName);
-
-                const categories = ['linguistic', 'logicalMathematical', 'musical', 'spatial', 'bodilyKinesthetic', 'interpersonal', 'intrapersonal', 'naturalist'];
-                
-                categories.forEach(category => {
-                    const scoreDiv = document.createElement('div');
-                    scoreDiv.classList.add('intelligence-score');
-
-                    const categoryName = document.createElement('span');
-                    categoryName.textContent = category.charAt(0).toUpperCase() + category.slice(1);
-                    scoreDiv.appendChild(categoryName);
-
-                    const scoreValue = document.createElement('span');
-                    scoreValue.textContent = `${user[category]}%`;
-                    scoreDiv.appendChild(scoreValue);
-
-                    userResult.appendChild(scoreDiv);
-                });
-
-                resultsContainer.appendChild(userResult);
-            });
-        })
-        .catch(error => console.error('Error fetching results:', error));
-});
+                resultsContainer.appendChild(resultElement);

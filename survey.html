@@ -3,23 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey</title>
+    <title>Intelligence Survey</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
     <div id="particles-js"></div>
     <div class="container">
         <h1>Intelligence Survey</h1>
-        <form id="surveyForm">
-            <div id="questionsContainer"></div>
-            <button type="submit">Submit Survey</button>
+        <form id="survey-form">
+            <div id="questions-container"></div>
+            <button type="submit" class="btn">Submit Survey</button>
         </form>
     </div>
     <script src="survey.js"></script>
-    <script>
-        particlesJS.load('particles-js', 'particles.json', function() {
-            console.log('particles.js loaded - callback');
-        });
-    </script>
 </body>
 </html>

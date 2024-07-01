@@ -5,28 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
     <div id="particles-js"></div>
     <div class="container">
-        <div class="survey">
-            <h1>Survey</h1>
-            <div id="survey-form">
-                <div class="question">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name">
-                </div>
-                <div class="question">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email">
-                </div>
-            </div>
-            <button id="prev-btn" style="display: none;">Previous</button>
-            <button id="next-btn">Next</button>
-            <button id="submit-btn" style="display: none;">Submit</button>
-        </div>
+        <h1>Welcome to the Intelligence Survey</h1>
+        <form id="userForm">
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <button type="submit">Start Survey</button>
+        </form>
     </div>
-    <script src="particles.min.js"></script>
-    <script src="script.js"></script>
+    <script src="index.js"></script>
+    <script>
+        particlesJS.load('particles-js', 'particles.json', function() {
+            console.log('particles.js loaded - callback');
+        });
+    </script>
 </body>
 </html>

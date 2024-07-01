@@ -22,3 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
 
                 resultsContainer.appendChild(resultElement);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});

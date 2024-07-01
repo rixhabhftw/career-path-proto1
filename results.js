@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const name = localStorage.getItem('name');
     const email = localStorage.getItem('email');
-    fetch(`https://script.google.com/macros/s/AKfycbz8bKrhVIToCc-HvPuh7PMjJe0mZRX_gs0AbVhpAMk5EbXbeSwqlFkdRc2OMZaqmZ6yxA/exec?name=${name}&email=${email}`)
+    fetch(`https://script.google.com/macros/s/AKfycbxrE3kbMG00c_u10iHnRORoWPN_tSIg2pAdglq75CnZXZstEcTVrUHkdSFd91mpWMRvpw/exec?name=${name}&email=${email}`)
         .then(response => response.json())
         .then(data => {
             if (data.length > 0) {

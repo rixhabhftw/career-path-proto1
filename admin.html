@@ -1,83 +1,16 @@
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
-            color: #fff;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 8px;
-        }
-        h1 {
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #fff;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background: #C850C0;
-        }
-        td {
-            background: rgba(0, 0, 0, 0.3);
-        }
-    </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h1>Survey Results</h1>
-        <table id="resultsTable">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Linguistic</th>
-                    <th>Logical-Mathematical</th>
-                    <th>Musical</th>
-                    <th>Spatial</th>
-                    <th>Bodily-Kinesthetic</th>
-                    <th>Interpersonal</th>
-                    <th>Intrapersonal</th>
-                    <th>Naturalist</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Results will be inserted here by script.js -->
-            </tbody>
-        </table>
+        <div id="resultsContainer"></div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec')
-                .then(response => response.json())
-                .then(data => {
-                    const resultsTable = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
-                    data.forEach(result => {
-                        const row = resultsTable.insertRow();
-                        row.insertCell(0).textContent = result.name;
-                        row.insertCell(1).textContent = result.email;
-                        row.insertCell(2).textContent = result.linguistic;
-                        row.insertCell(3).textContent = result.logicalMathematical;
-                        row.insertCell(4).textContent = result.musical;
-                        row.insertCell(5).textContent = result.spatial;
-                        row.insertCell(6).textContent = result.bodilyKinesthetic;
-                        row.insertCell(7).textContent = result.interpersonal;
-                        row.insertCell(8).textContent = result.intrapersonal;
-                        row.insertCell(9).textContent = result.naturalist;
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-        });
-    </script>
+    <script src="admin.js"></script>
 </body>
 </html>

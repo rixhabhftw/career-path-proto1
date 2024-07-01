@@ -5,37 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intelligence Survey</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <script src="particles.min.js"></script>
 </head>
 <body>
     <div id="particles-js"></div>
     <div class="container">
-        <h1>Welcome to the Intelligence Survey</h1>
-        <form id="user-form">
-            <div>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <button type="submit" class="btn">Start Survey</button>
-        </form>
+        <div id="user-info">
+            <h1>Welcome to the Intelligence Survey</h1>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <button id="start-survey">Start Survey</button>
+        </div>
+        <div id="survey" style="display:none;">
+            <h1>Intelligence Survey</h1>
+            <div id="questions"></div>
+            <button id="submit-survey">Submit Survey</button>
+        </div>
     </div>
-    <script>
-        document.getElementById('user-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            localStorage.setItem('name', name);
-            localStorage.setItem('email', email);
-            window.location.href = 'survey.html';
-        });
-    </script>
+    <script src="script.js"></script>
     <script>
         particlesJS.load('particles-js', 'particles.json', function() {
-            console.log('particles.js config loaded');
+          console.log('particles.js loaded - callback');
         });
     </script>
 </body>

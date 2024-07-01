@@ -1,113 +1,72 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const questions = [
-        // Linguistic questions
-        { text: "I enjoy writing things down.", category: "linguistic" },
-        { text: "I love reading books.", category: "linguistic" },
-        // Logical-Mathematical questions
-        { text: "I like solving math problems.", category: "logicalMathematical" },
-        { text: "I enjoy working with numbers.", category: "logicalMathematical" },
-        // Musical questions
-        { text: "I can recognize songs easily.", category: "musical" },
-        { text: "I enjoy listening to music.", category: "musical" },
-        // Spatial questions
-        { text: "I am good at visualizing things.", category: "spatial" },
-        { text: "I like to draw or doodle.", category: "spatial" },
-        // Bodily-Kinesthetic questions
-        { text: "I enjoy physical activities.", category: "bodilyKinesthetic" },
-        { text: "I like hands-on learning.", category: "bodilyKinesthetic" },
-        // Interpersonal questions
-        { text: "I work well in teams.", category: "interpersonal" },
-        { text: "I enjoy helping others.", category: "interpersonal" },
-        // Intrapersonal questions
-        { text: "I am aware of my own emotions.", category: "intrapersonal" },
-        { text: "I enjoy spending time alone.", category: "intrapersonal" },
-        // Naturalist questions
-        { text: "I enjoy spending time in nature.", category: "naturalist" },
-        { text: "I can easily identify different plants and animals.", category: "naturalist" }
-    ];
+document.getElementById('start-survey').addEventListener('click', function() {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    if (name && email) {
+        localStorage.setItem('name', name);
+        localStorage.setItem('email', email);
+        document.getElementById('user-info').style.display = 'none';
+        document.getElementById('survey').style.display = 'block';
+    } else {
+        alert('Please enter your name and email.');
+    }
+});
 
-    const questionsContainer = document.getElementById("questions-container");
+const questions = [
+    { category: "Verbal/Linguistic", question: "I enjoy reading books." },
+    { category: "Verbal/Linguistic", question: "I like to write." },
+    { category: "Logical/Mathematical", question: "I enjoy solving puzzles." },
+    { category: "Logical/Mathematical", question: "I like to work with numbers." },
+    { category: "Visual/Spatial", question: "I enjoy drawing." },
+    { category: "Visual/Spatial", question: "I like to visualize things in my mind." },
+    { category: "Musical/Rhythmic", question: "I enjoy listening to music." },
+    { category: "Musical/Rhythmic", question: "I can keep rhythm easily." },
+    { category: "Bodily/Kinesthetic", question: "I enjoy physical activities." },
+    { category: "Bodily/Kinesthetic", question: "I like to move around when thinking." },
+    { category: "Interpersonal", question: "I enjoy working in teams." },
+    { category: "Interpersonal", question: "I understand others' feelings easily." },
+    { category: "Intrapersonal", question: "I am aware of my own emotions." },
+    { category: "Intrapersonal", question: "I like to reflect on my thoughts." },
+    { category: "Naturalistic", question: "I enjoy spending time in nature." },
+    { category: "Naturalistic", question: "I like to observe wildlife." }
+];
 
-    questions.forEach((question, index) => {
-        const questionElement = document.createElement("div");
-        questionElement.classList.add("question");
+const questionContainer = document.getElementById('questions');
+questions.forEach((q, index) => {
+    const div = document.createElement('div');
+    div.className = 'question';
+    div.innerHTML = `
+        <p>${index + 1}. ${q.question}</p>
+        <input type="radio" name="q${index}" value="1"> 1
+        <input type="radio" name="q${index}" value="2"> 2
+        <input type="radio" name="q${index}" value="3"> 3
+        <input type="radio" name="q${index}" value="4"> 4
+        <input type="radio" name="q${index}" value="5"> 5
+    `;
+    questionContainer.appendChild(div);
+});
 
-        const questionText = document.createElement("p");
-        questionText.textContent = `${index + 1}. ${question.text}`;
-        questionElement.appendChild(questionText);
-
-        for (let i = 1; i <= 5; i++) {
-            const label = document.createElement("label");
-            const radio = document.createElement("input");
-            radio.type = "radio";
-            radio.name = `q${index + 1}`;
-            radio.value = i;
-            label.appendChild(radio);
-            label.appendChild(document.createTextNode(i));
-            questionElement.appendChild(label);
+document.getElementById('submit-survey').addEventListener('click', function() {
+    const responses = [];
+    questions.forEach((q, index) => {
+        const answer = document.querySelector(`input[name="q${index}"]:checked`);
+        if (answer) {
+            responses.push({ category: q.category, score: parseInt(answer.value) });
+        } else {
+            alert('Please answer all questions.');
+            return;
         }
-
-        questionsContainer.appendChild(questionElement);
     });
 
-    document.getElementById("survey-form").addEventListener("submit", function(event) {
-        event.preventDefault();
-        
-        const name = localStorage.getItem("name");
-        const email = localStorage.getItem("email");
+    const result = responses.reduce((acc, curr) => {
+        acc[curr.category] = (acc[curr.category] || 0) + curr.score;
+        return acc;
+    }, {});
 
-        const scores = {
-            linguistic: 0,
-            logicalMathematical: 0,
-            musical: 0,
-            spatial: 0,
-            bodilyKinesthetic: 0,
-            interpersonal: 0,
-            intrapersonal: 0,
-            naturalist: 0
-        };
+    const name = localStorage.getItem('name');
+    const email = localStorage.getItem('email');
 
-        const totalQuestions = {
-            linguistic: 0,
-            logicalMathematical: 0,
-            musical: 0,
-            spatial: 0,
-            bodilyKinesthetic: 0,
-            interpersonal: 0,
-            intrapersonal: 0,
-            naturalist: 0
-        };
+    google.script.run.submitSurvey(name, email, result);
 
-        questions.forEach((question, index) => {
-            const selectedOption = document.querySelector(`input[name="q${index + 1}"]:checked`);
-            if (selectedOption) {
-                scores[question.category] += parseInt(selectedOption.value);
-                totalQuestions[question.category]++;
-            }
-        });
-
-        for (const category in scores) {
-            scores[category] = (scores[category] / (totalQuestions[category] * 5)) * 100;
-        }
-
-        fetch("https://script.google.com/macros/s/AKfycbxrE3kbMG00c_u10iHnRORoWPN_tSIg2pAdglq75CnZXZstEcTVrUHkdSFd91mpWMRvpw/exec", {
-            method: "POST",
-            body: JSON.stringify({ name, email, ...scores }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.result === "success") {
-                alert("Survey submitted successfully!");
-            } else {
-                alert("There was an error submitting the survey.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("There was an error submitting the survey.");
-        });
-    });
+    alert('Survey submitted successfully!');
+    window.location.href = 'admin.html';
 });

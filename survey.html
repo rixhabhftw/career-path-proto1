@@ -3,75 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiple Intelligence Survey</title>
+    <title>Survey</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
-            color: #fff;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 8px;
-        }
-        h1, h2 {
-            text-align: center;
-        }
-        .question {
-            margin-bottom: 15px;
-        }
-        .question label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .options {
-            display: flex;
-            justify-content: space-between;
-        }
-        .options label {
-            margin-right: 10px;
-        }
-        .submit-button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background: #C850C0;
-            color: #fff;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
+    <div id="particles-js"></div>
     <div class="container">
-        <h1>Multiple Intelligence Survey</h1>
-        <h2>Enter your details to start the survey</h2>
-        <div id="user-details">
-            <div class="question">
-                <label for="name">Name:</label>
-                <input type="text" id="name" required>
-            </div>
-            <div class="question">
-                <label for="email">Email:</label>
-                <input type="email" id="email" required>
-            </div>
-            <button class="submit-button" onclick="startSurvey()">Start Survey</button>
-        </div>
-        <div id="survey-questions" style="display: none;">
-            <form id="surveyForm">
-                <!-- Questions will be inserted here by script.js -->
-            </form>
-            <button class="submit-button" onclick="submitSurvey()">Submit Survey</button>
-        </div>
+        <h1>Intelligence Survey</h1>
+        <form id="surveyForm">
+            <div id="questionsContainer"></div>
+            <button type="submit">Submit Survey</button>
+        </form>
     </div>
-    <script src="script.js"></script>
+    <script src="survey.js"></script>
+    <script>
+        particlesJS.load('particles-js', 'particles.json', function() {
+            console.log('particles.js loaded - callback');
+        });
+    </script>
 </body>
 </html>
